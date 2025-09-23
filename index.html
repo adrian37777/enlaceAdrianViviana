@@ -374,17 +374,16 @@
         $("#countdown").html(text);
       }
 
+
+
+      $(document).ready(function () {
   const sound = new Howl({
     src: ['romantic.mp3'],
     loop: true,
     volume: 0.5
   });
 
-  document.querySelector(".sobre").addEventListener("click", () => {
-    sound.play();
-  });
 
-      $(document).ready(function () {
         updateCountdown();
         setInterval(updateCountdown, 1000);
 
@@ -393,6 +392,7 @@
           $(".sobre-der").addClass("animate__animated animate__slideOutRight");
           $(".app").show();
           $(".sello").hide();
+           sound.play();
         });
 
         
