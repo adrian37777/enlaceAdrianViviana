@@ -22,6 +22,9 @@
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js"></script>
+
+
     <style>
       /* Reset ligero */
       * {
@@ -347,10 +350,6 @@
         <p></p>
       </section>
     </div>
-    <audio autoplay loop>
-  <source src="romantic.mp3" type="audio/mpeg">
-  Tu navegador no soporta audio.
-</audio>
     <script>
       // Configuración personalizada
       const weddingDate = new Date("2026-06-06T17:00:00").getTime();
@@ -374,6 +373,16 @@
         const text = `${days} días <br/> <br/>   ${hours}hs | ${minutes}min | ${seconds}seg`;
         $("#countdown").html(text);
       }
+
+  const sound = new Howl({
+    src: ['romantic.mp3'],
+    loop: true,
+    volume: 0.5
+  });
+
+  document.querySelector(".sobre").addEventListener("click", () => {
+    sound.play();
+  });
 
       $(document).ready(function () {
         updateCountdown();
