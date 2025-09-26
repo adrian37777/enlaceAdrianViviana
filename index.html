@@ -431,6 +431,14 @@
       }
 
       $(document).ready(function () {
+
+const queryString = window.location.search;
+
+const urlParams = new URLSearchParams(queryString);
+
+const user = urlParams.get('user');   
+
+console.log("User:", user);
         const sound = new Howl({
           src: ["romantic.mp3"],
           loop: true,
