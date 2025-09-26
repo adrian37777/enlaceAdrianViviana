@@ -190,23 +190,23 @@
           }
 
       .sobre{
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 10000;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        overflow: hidden;
-        border: solid thin gray;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    border: solid thin gray;
 
         & .sobre-izq {
           background-color: moccasin;
           top: 0;
           left: 0;
-          width: 50%;
+          width: 100%;
           height: 100%;
           filter: drop-shadow(2px 4px 6px gray);
             background-image: url('textura.png');
@@ -217,7 +217,7 @@
           background-color: moccasin;
           top: 0;
           right: 0;
-          width: 50%;
+          width: 100%;
           height: 100%;
           filter: drop-shadow(2px 4px 6px black);
             background-image: url('textura.png');
@@ -486,8 +486,8 @@ console.log("User:", user);
 
         $(".iniciar").on("click", function () {
           $('.iniciar, .saludo').hide();
-          $(".sobre-izq").addClass("animate__animated animate__slideOutLeft");
-          $(".sobre-der").addClass("animate__animated animate__slideOutRight");
+          $(".sobre-izq").addClass("animate__animated animate__slideOutUp");
+          $(".sobre-der").addClass("animate__animated animate__slideOutDown");
           $(".app").show();
           $(".sello").hide();
           sound.play();
