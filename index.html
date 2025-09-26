@@ -255,6 +255,7 @@
     </style>
   </head>
   <body>
+    <div class="saludo"><div>HOLA</div><div id="user"></div></div>
     <div class="iniciar"></div>
     <div class="sobre animate__animated animate__zoomIn">
       <div class="sello">
@@ -432,6 +433,8 @@
 
       $(document).ready(function () {
 
+      
+
 const queryString = window.location.search;
 
 const urlParams = new URLSearchParams(queryString);
@@ -439,6 +442,7 @@ const urlParams = new URLSearchParams(queryString);
 const user = urlParams.get('user');   
 
 console.log("User:", user);
+  $('#user').html(user)
         const sound = new Howl({
           src: ["romantic.mp3"],
           loop: true,
