@@ -182,10 +182,9 @@
       justify-content: center;
       align-items: center;
       width: 100%;
-      overflow: hidden;
       height: 230px;
       margin-bottom: 18px;
-      filter: drop-shadow(2px 4px 6px black);
+      filter: drop-shadow(2px 4px 6px gray);
     }
 
     .iniciar {
@@ -466,27 +465,74 @@
     }
 
     $(document).ready(function () {
-
       let totalFotos = 20;
       let index = 1;
       let $img = $("#foto-activa");
+      let $contenedor = $img.parent(); // usamos el mismo div
 
       function cargarFoto() {
-        $img.fadeOut(1000, function () {
-          // cuando termina el fadeOut cambiamos la imagen
-          $img.attr("src", "fotos/" + index + ".jpg");
-          $img.fadeIn(1000);
-        });
+        // si llegamos al final (20), limpiar todo y reiniciar
+        if (index > totalFotos) {
+          $contenedor.empty(); // borrar todas las fotos
+          // reinsertamos la imagen base
+          $contenedor.append($img);
+          index = 1;
+        }
+
+        // decidir desde qué lado entra (izquierda o derecha)
+        let desdeIzq = Math.random() > 0.5;
+
+        // crear una nueva imagen clonada
+        let $nueva = $img.clone();
+        $nueva
+          .attr("src", "fotos/" + index + ".jpg")
+          .css({
+            position: "absolute",
+            top: 0,
+            left: desdeIzq ? "-120%" : "120%", // empieza fuera del contenedor
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            border: "5px solid white",
+            boxShadow: "0 0 10px rgba(0,0,0,0.4)",
+            transform: `rotate(${Math.random() * 15 - 5}deg)`
+          });
+
+        $contenedor.append($nueva);
+
+        // animar entrada deslizándose al centro
+        $nueva.animate(
+          { left: "0%" },
+          1000,
+          "swing"
+        );
 
         index++;
-        if (index > totalFotos) index = 1; // volver a la primera
+
+        // si hay más de 5 imágenes, eliminar la más antigua (primera)
+        if ($contenedor.find("img").length > 5) {
+          $contenedor.find("img").first().remove();
+        }
       }
 
       // cargar la primera
-      $img.attr("src", "fotos/" + index + ".jpg").fadeIn(1000);
+      $img.attr("src", "fotos/" + index + ".jpg").css({
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        objectFit: "cover",
+        border: "5px solid white",
+        boxShadow: "0 0 10px rgba(0,0,0,0.4)"
+      });
+
+      index++;
 
       // cambiar cada 4 segundos
       setInterval(cargarFoto, 4000);
+
+
 
 
 
