@@ -320,23 +320,9 @@
       <section
         class="info-section animate__animated animate__fadeInUp animate__delay-2s"
       >
-        <div class="fotos-carrusel">
-          <img
-            style="border-radius: 5px; border: solid white 15px"
-            src="fotos/1.jpg"
-            width="50%"
-          />
-                  <img
-            style="border-radius: 10px; border:solid white 15px"
-            src="fotos/2.jpg"
-            width="50%"
-          />
-                  <img
-            style="border-radius: 10px; border: solid white 15px"
-            src="fotos/3.jpg"
-            width="50%"
-          />
-        </div>
+<div class="fotos-carrusel">
+  <img id="foto-activa" style="border-radius:10px; border:solid white 15px" width="50%">
+</div>
         <h1>¡ Nos casamos !</h1>
 
         <p>
@@ -455,6 +441,27 @@
       }
 
       $(document).ready(function () {
+
+       let totalFotos = 18;        // cuántas fotos hay
+  let index = 1;              // empezamos en la 1
+  let $img = $("#foto-activa");
+
+  function cargarFoto() {
+    $img.fadeOut(1000, function () {
+      // cuando termina el fadeOut cambiamos la imagen
+      $img.attr("src", "fotos/" + index + ".jpg");
+      $img.fadeIn(1000);
+    });
+
+    index++;
+    if (index > totalFotos) index = 1; // volver a la primera
+  }
+
+  // cargar la primera
+  $img.attr("src", "fotos/" + index + ".jpg").fadeIn(1000);
+
+  // cambiar cada 4 segundos
+  setInterval(cargarFoto, 4000);
 
       
 
