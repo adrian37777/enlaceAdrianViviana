@@ -157,7 +157,7 @@
         margin: 36px auto;
       }
 
-      .sobre {
+      .sobre, .iniciar {
         position: absolute;
         top: 0;
         left: 0;
@@ -246,6 +246,7 @@
     </style>
   </head>
   <body>
+    <div class="iniciar"></div>
     <div class="sobre animate__animated animate__zoomIn">
       <div class="sello">
         <img src="sello.png" width="336px" />
@@ -430,7 +431,8 @@
         updateCountdown();
         setInterval(updateCountdown, 1000);
 
-        $(".sobre").on("click", function () {
+        $(".iniciar").on("click", function () {
+          $('.iniciar').hide();
           $(".sobre-izq").addClass("animate__animated animate__slideOutLeft");
           $(".sobre-der").addClass("animate__animated animate__slideOutRight");
           $(".app").show();
