@@ -166,6 +166,18 @@
         margin: 36px auto;
       }
 
+      .fotos-carrusel{
+        display: flex
+;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    overflow: hidden;
+      }
+
       .iniciar {
         position: absolute;
         top: 0;
@@ -308,7 +320,7 @@
       <section
         class="info-section animate__animated animate__fadeInUp animate__delay-2s"
       >
-        <div>
+        <div style="fotos-carrusel">
           <img
             style="border-radius: 5px; border: solid white 15px"
             src="fotos/1.jpg"
