@@ -77,6 +77,15 @@
         margin-bottom: 1em;
       }
 
+      .saludo{
+            z-index: 100000;
+    position: absolute;
+    font-size: 4em;
+    width: 100%;
+    text-align: right;
+    left: -19px;
+      }
+
       /* Contador */
       #countdown {
         font-size: 2em;
@@ -255,7 +264,7 @@
     </style>
   </head>
   <body>
-    <div class="saludo"><div>HOLA</div><div id="user"></div></div>
+    <div class="saludo"><div>para</div><div id="user"></div></div>
     <div class="iniciar"></div>
     <div class="sobre animate__animated animate__zoomIn">
       <div class="sello">
@@ -453,7 +462,7 @@ console.log("User:", user);
         setInterval(updateCountdown, 1000);
 
         $(".iniciar").on("click", function () {
-          $('.iniciar').hide();
+          $('.iniciar, .saludo').hide();
           $(".sobre-izq").addClass("animate__animated animate__slideOutLeft");
           $(".sobre-der").addClass("animate__animated animate__slideOutRight");
           $(".app").show();
