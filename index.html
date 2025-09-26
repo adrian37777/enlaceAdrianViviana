@@ -477,7 +477,7 @@
           $contenedor.empty(); // borrar todas las fotos
           // reinsertamos la imagen base
           $contenedor.append($img);
-          index = 1;
+          index = 2;
         }
 
         // decidir desde qué lado entra (izquierda o derecha)
@@ -511,7 +511,7 @@
         index++;
 
         // si hay más de 5 imágenes, eliminar la más antigua (primera)
-        if ($contenedor.find("img").length > 5) {
+        if ($contenedor.find("img").length > 3) {
           $contenedor.find("img").first().remove();
         }
       }
