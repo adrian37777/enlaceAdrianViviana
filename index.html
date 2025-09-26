@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Invitación de Boda</title>
+
+    <!-- Animate.css -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js"></script>
+
+    <style>
+      /* Reset ligero */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body,
+      html {
+        height: 100%;
+        font-family: "Caveat", cursive;
+        font-optical-sizing: auto;
+        font-style: normal;
+        color: #333;
+        line-height: 1.4;
+        background-color: white;
+      }
+
+      /* Hero / portada */
+      .hero {
+        position: relative;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: black;
+      }
+      .hero .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+      .hero .hero-content {
+        position: relative;
+        z-index: 2;
+        padding: 20px;
+        max-width: 90%;
+        margin-top: 70%;
+      }
+      .hero h1 {
+        font-size: 3em;
+        font-weight: 700;
+        margin-bottom: 0.5em;
+      }
+      .hero p.subtitle {
+        font-size: 1.5em;
+        font-weight: 300;
+        margin-bottom: 1em;
+      }
+
+      /* Contador */
+      #countdown {
+        font-size: 2em;
+        font-weight: 500;
+        padding: 15px 25px;
+        border-radius: 8px;
+        display: inline-block;
+        color: #333;
+      }
+
+      /* Sección info (ubicación, horario, etc.) */
+      .info-section {
+        padding: 60px 20px;
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: center;
+      }
+      .info-section h2 {
+        font-size: 2em;
+        margin-bottom: 0.5em;
+        color: #444;
+      }
+      .info-section p {
+        font-size: 1.8em;
+        margin-bottom: 1em;
+        color: #666;
+        line-height: 0.9em;
+      }
+
+      /* Footer / RSVP / detalles adicionales */
+      .footer {
+        padding: 40px 20px;
+        background: #f9f9f9;
+        text-align: center;
+        font-size: 0.9em;
+        color: #555;
+      }
+
+      .title-y {
+        position: absolute;
+        margin: 0 auto;
+        left: -74px;
+        right: 0;
+        font-size: 3.2em;
+        margin-top: -39px;
+        z-index: -1;
+        opacity: 0.5;
+        color: orangered;
+        font-weight: lighter;
+      }
+      .title {
+        font-size: 4em;
+        line-height: 65px;
+        margin-bottom: 32px;
+      }
+
+      .fondo {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 50%;
+        overflow: hidden;
+        z-index: 1;
+        & .image_fondo {
+          left: 0;
+          position: absolute;
+          top: -94px;
+        }
+      }
+
+      .date {
+        font-size: 1.6em;
+        border: solid;
+        width: 58%;
+        background-color: rgb(255, 255, 255, 0.5);
+        left: 0;
+        margin: 36px auto;
+      }
+
+      .sobre {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 10000;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow: hidden;
+        border: solid thin gray;
+
+        & .sobre-izq {
+          background-color: moccasin;
+          top: 0;
+          left: 0;
+          width: 50%;
+          height: 100%;
+          filter: drop-shadow(2px 4px 6px gray);
+        }
+        & .sobre-der {
+          background-color: moccasin;
+          top: 0;
+          right: 0;
+          width: 50%;
+          height: 100%;
+          filter: drop-shadow(2px 4px 6px black);
+        }
+      }
+
+      .app {
+        display: none;
+      }
+
+      .sello {
+        position: absolute;
+        width: 100%;
+        top: 29%;
+        left: 0;
+        text-align: center;
+        z-index: 100000;
+      }
+
+      .text-sello {
+        font-size: 2em;
+        position: absolute;
+        top: 35%;
+        text-align: center;
+        left: -8px;
+        right: 3px;
+        font-weight: bold;
+        color: black;
+        line-height: 1.2em;
+      }
+
+      /* Responsividad */
+      @media (max-width: 768px) {
+        .hero h1 {
+          font-size: 2.2em;
+        }
+        .hero p.subtitle {
+          font-size: 1.2em;
+        }
+        #countdown {
+          font-size: 2em;
+          padding: 10px 20px;
+        }
+      }
+      @media (max-width: 480px) {
+        .hero h1 {
+          font-size: 1.8em;
+        }
+        .hero p.subtitle {
+          font-size: 1em;
+        }
+        #countdown {
+          font-size: 2em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sobre animate__animated animate__zoomIn">
+      <div class="sello">
+        <img src="sello.png" width="336px" />
+        <div class="text-sello">Abre <br />el sobre</div>
+      </div>
+      <div class="sobre-izq"></div>
+      <div class="sobre-der"></div>
+    </div>
+    <div class="app">
+      <img
+        src="curva_portada_horizontal.png"
+        style="position: absolute; left: 0; top: 31%; z-index: 2"
+        width="100%"
+      />
+      <section class="hero">
+        <div class="fondo animate__animated animate__fadeIn">
+          <img class="image_fondo" src="fondo.jpg" width="100%" />
+        </div>
+        <div class="overlay"></div>
+
+        <div class="hero-content animate__animated animate__fadeIn">
+          <div class="date animate__animated animate__fadeIn animate__delay-1s">
+            06.06.2026
+          </div>
+          <div
+            class="title animate__animated animate__fadeIn animate__delay-2s"
+          >
+            Adrián<br />
+            <span class="title-y">&</span> Viviana
+          </div>
+          <h1
+            class="subtitle animate__animated animate__fadeInUp animate__delay-3s"
+          >
+            "Amor, risas y baile…<br />
+            ¡no puede faltar tu sonrisa!"
+          </h1>
+        </div>
+      </section>
+      <hr />
+      <section
+        class="info-section animate__animated animate__fadeInUp animate__delay-2s"
+      >
+        <div>
+          <img
+            style="border-radius: 44px; border: solid gray"
+            src="boda animada.gif"
+            width="80%"
+          />
+        </div>
+        <h1>¡ Nos casamos !</h1>
+
+        <p>
+          <br />
+          Pues sí, nos casamos, así que hemos pensado en ti,
+          <strong>sí, en ti</strong>, queremos que
+          <strong>compartas con nosotros</strong> este día tan especial.
+          <br /><br />
+          <strong>¡Estamos deseando que vengas!</strong>
+        </p>
+      </section>
+      <hr />
+      <section
+        class="info-section animate__animated animate__fadeInUp animate__delay-2s"
+      >
+        <div>
+          <img src="regresivo.gif" width="100%" style="filter: saturate(0)" />
+        </div>
+        <h2>Faltan</h2>
+        <p id="countdown" class="animate__animated animate__zoomIn">
+          <!-- Aquí va el contador -->
+        </p>
+      </section>
+      <hr />
+      <section
+        class="info-section animate__animated animate__fadeInUp animate__delay-2s"
+      >
+        <h2>Confirmar asistencia</h2>
+        <p>
+          <a href="https://forms.gle/HRVUQrebpASVwVqN9" target="_blank"
+            >Rellenar formulario</a
+          >
+        </p>
+      </section>
+      <hr />
+      <section
+        class="info-section animate__animated animate__fadeInUp animate__delay-2s"
+      >
+        <h2>Dia</h2>
+        <p>
+          El 6 de Junio de 2026<br />
+          Empezamos a las 17:00pm
+        </p>
+
+        <h2>Lugar</h2>
+        <p>
+          Mánsion Piedras Blancas<br />
+          Málaga, España
+        </p>
+
+        <h2>Dirección</h2>
+        <p>
+          Paraje de Piedras Blancas, A-7000, Km. 3,5, 29170 Colmenar, Málaga
+        </p>
+        <p>
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3191.1286844729584!2d-4.347284525790155!3d36.88726966278922!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd7260906aac30f7%3A0x2daa0bc2defc5d99!2sMansi%C3%B3n%20Piedras%20Blancas!5e0!3m2!1ses!2ses!4v1758528789713!5m2!1ses!2ses"
+            width="90%"
+            height="250"
+            style="border: 1"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </p>
+      </section>
+
+      <hr />
+      <section
+        class="info-section animate__animated animate__fadeInUp animate__delay-2s"
+      >
+        <div style="margin-top: -100px">
+          <img src="regalo.gif" width="70%" />
+        </div>
+        <h2>Regalos</h2>
+        <p>
+          <strong
+            >¿Quieres tener un detalle<br />
+            con nosotros?</strong
+          >
+        </p>
+        <p>
+          Nosotros queremos pasar este dia contigo porque eres muy especial para
+          nosotros, no es obligatorio ni lo ponemos aqui para que lo sea
+          <strong>(No te sientas influido por ello)</strong><br />
+          Pero si quieres realmente tener nos vendria muy bien:
+        </p>
+        <p>Bizum | transferencia | sobres</p>
+      </section>
+    </div>
+    <script>
+      // Configuración personalizada
+      const weddingDate = new Date("2026-06-06T17:00:00").getTime();
+
+      function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = weddingDate - now;
+
+        if (distance <= 0) {
+          $("#countdown").text("¡El gran día ha llegado! 🎉");
+          return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor(
+          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        const text = `${days} días <br/> <br/>   ${hours}hs | ${minutes}min | ${seconds}seg`;
+        $("#countdown").html(text);
+      }
+
+      $(document).ready(function () {
+        const sound = new Howl({
+          src: ["romantic.mp3"],
+          loop: true,
+          volume: 0.5,
+        });
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        $(".sobre").on("click", function () {
+          $(".sobre-izq").addClass("animate__animated animate__slideOutLeft");
+          $(".sobre-der").addClass("animate__animated animate__slideOutRight");
+          $(".app").show();
+          $(".sello").hide();
+          sound.play();
+        });
+      });
+    </script>
+  </body>
+</html>
