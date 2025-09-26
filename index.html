@@ -321,11 +321,8 @@
       <section
         class="info-section animate__animated animate__fadeInUp animate__delay-2s"
       >
-<div class="carrusel-contenedor" style="overflow:hidden; width:50%; border:solid white 15px; border-radius:10px;">
-  <div class="carrusel-pista" style="display:flex; margin-left:0;">
-    <!-- Aquí solo arrancamos con la primera foto -->
-    <img id="foto-inicial" src="fotos/1.jpg" style="flex-shrink:0; width:100%;">
-  </div>
+<div class="fotos-carrusel">
+  <img id="foto-activa" style="border-radius:10px; border:solid white 15px" width="50%">
 </div>
         <h1>¡ Nos casamos !</h1>
 
@@ -438,42 +435,27 @@
 
       $(document).ready(function () {
 
-let totalFotos = 18;
-  let index = 2; // empezamos desde la 2 porque la 1 ya está puesta
-  let $pista = $(".carrusel-pista");
-  let ancho = $(".carrusel-contenedor").width();
+       let totalFotos = 17;       
+  let index = 1;             
+  let $img = $("#foto-activa");
 
-  function cargarSiguiente() {
-    // añadir la siguiente foto al final de la pista
-    let $nueva = $("<img>")
-      .attr("src", "fotos/" + index + ".jpg")
-      .css({ "flex-shrink": "0", width: "100%" });
+  function cargarFoto() {
+    $img.fadeOut(1000, function () {
+      // cuando termina el fadeOut cambiamos la imagen
+      $img.attr("src", "fotos/" + index + ".jpg");
+      $img.fadeIn(1000);
+    });
 
-    $pista.append($nueva);
-
-    // animar la pista hacia la izquierda
-    $pista.animate(
-      { marginLeft: -ancho + "px" },
-      5000, // duración (más grande = más despacio)
-      "linear",
-      function () {
-        // quitar la primera foto que ya salió de pantalla
-        $pista.find("img").first().remove();
-        // resetear margen para seguir
-        $pista.css("margin-left", "0");
-
-        // avanzar índice
-        index++;
-        if (index > totalFotos) index = 1;
-
-        // volver a llamar
-        cargarSiguiente();
-      }
-    );
+    index++;
+    if (index > totalFotos) index = 1; // volver a la primera
   }
 
-  // iniciar
-  cargarSiguiente();
+  // cargar la primera
+  $img.attr("src", "fotos/" + index + ".jpg").fadeIn(1000);
+
+  // cambiar cada 4 segundos
+  setInterval(cargarFoto, 4000);
+
       
 
 const queryString = window.location.search;
