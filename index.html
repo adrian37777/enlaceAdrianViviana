@@ -466,31 +466,44 @@
     }
 
     $(document).ready(function () {
-      let totalFotos = 20;
-      let index = 1;
       let $img = $("#foto-activa");
-      let $contenedor = $img.parent(); // usamos el mismo div
+      let $contenedor = $img.parent();
 
+      let totalFotos = 20; // cambia según tu cantidad real
+      let ordenFotos = [];
+      let index = 0;
+
+      // función para barajar (Fisher–Yates shuffle)
+      function barajar() {
+        ordenFotos = [];
+        for (let i = 1; i <= totalFotos; i++) {
+          ordenFotos.push(i);
+        }
+        for (let i = ordenFotos.length - 1; i > 0; i--) {
+          let j = Math.floor(Math.random() * (i + 1));
+          [ordenFotos[i], ordenFotos[j]] = [ordenFotos[j], ordenFotos[i]];
+        }
+        index = 0;
+      }
+
+      // función para cargar la siguiente foto
       function cargarFoto() {
-        // si llegamos al final (20), limpiar todo y reiniciar
-        if (index > totalFotos) {
-          $contenedor.empty(); // borrar todas las fotos
-          // reinsertamos la imagen base
-          $contenedor.append($img);
-          index = 2;
+        if (index >= totalFotos) {
+          barajar(); // reiniciar con nuevo orden aleatorio
         }
 
-        // decidir desde qué lado entra (izquierda o derecha)
+        let fotoActual = ordenFotos[index];
+        index++;
+
         let desdeIzq = Math.random() > 0.5;
 
-        // crear una nueva imagen clonada
         let $nueva = $img.clone();
         $nueva
-          .attr("src", "fotos/" + index + ".jpg")
+          .attr("src", "fotos/" + fotoActual + ".jpg")
           .css({
             position: "absolute",
             top: 0,
-            left: desdeIzq ? "-120%" : "120%", // empieza fuera del contenedor
+            left: desdeIzq ? "-120%" : "120%",
             width: "100%",
             height: "100%",
             objectFit: "cover",
@@ -501,23 +514,20 @@
 
         $contenedor.append($nueva);
 
-        // animar entrada deslizándose al centro
         $nueva.animate(
           { left: "0%" },
           1000,
           "swing"
         );
 
-        index++;
-
-        // si hay más de 5 imágenes, eliminar la más antigua (primera)
         if ($contenedor.find("img").length > 3) {
           $contenedor.find("img").first().remove();
         }
       }
 
-      // cargar la primera
-      $img.attr("src", "fotos/" + index + ".jpg").css({
+      // inicializar
+      barajar();
+      $img.attr("src", "fotos/" + ordenFotos[index] + ".jpg").css({
         position: "absolute",
         top: 0,
         left: 0,
@@ -527,13 +537,10 @@
         border: "5px solid white",
         boxShadow: "0 0 10px rgba(0,0,0,0.4)"
       });
-
       index++;
 
       // cambiar cada 4 segundos
       setInterval(cargarFoto, 4000);
-
-
 
 
 
