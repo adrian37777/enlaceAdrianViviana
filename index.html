@@ -38,6 +38,57 @@
       background-color: white;
     }
 
+        /* Itinerario Estilo Imagen */
+    .timeline {
+      position: relative;
+      max-width: 400px;
+      margin: 40px auto;
+      padding: 20px 0;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: #b8926a; /* Color café/dorado de la imagen */
+      left: 50%;
+      margin-left: -1px;
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 40px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 12px;
+      height: 12px;
+      background: #b8926a;
+      border-radius: 50%;
+      z-index: 2;
+    }
+
+    .timeline-content {
+      width: 45%;
+      padding: 10px;
+    }
+
+    .timeline-icon {
+      width: 45%;
+      padding: 10px;
+      font-size: 2.5em;
+    }
+
+    .left { text-align: right; }
+    .right { text-align: left; margin-left:24px}
     /* Hero / portada */
     .hero {
       position: relative;
@@ -415,10 +466,46 @@
       <h2>Dia</h2>
       <p>
         El 6 de Junio de 2026<br />
-        Empezamos a las 18:30pm
+        Empezamos a las 19:00pm
       </p>
 
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-content left">
+            <span class="time-text">19:30 HRS</span>
+            <span class="event-text">Ceremonia</span>
+          </div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-icon right">⛪</div>
+        </div>
 
+        <div class="timeline-item">
+          <div class="timeline-icon left">🍸</div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-content right">
+            <span class="time-text">20:15 HRS</span>
+            <span class="event-text">Cóctel</span>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-content left">
+            <span class="time-text">21:15 HRS</span>
+            <span class="event-text">Cena</span>
+          </div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-icon right">🍽️</div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-icon left">💃</div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-content right">
+            <span class="time-text">22:30 HRS</span>
+            <span class="event-text">Fiesta</span>
+          </div>
+        </div>
+      </div>
 
       <h2>Lugar</h2>
       <p>
